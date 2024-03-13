@@ -23,7 +23,7 @@ export class ProductManager {
 
     getProducts() {
         let productsFile = fs.readFileSync(this.path, "utf8")
-        return productsFile; 
+        return JSON.parse(productsFile); 
     }
 
     #getCode() {
@@ -36,10 +36,12 @@ export class ProductManager {
 
     getProductById(id) {
         let productsFile = fs.readFileSync(this.path, "utf8")
-        if (JSON.parse(productsFile).filter(product => product.code === id ).length === 0) {
+
+        if (JSON.parse(productsFile).filter(product => product.code == id ).length === 0) {
             return ("Not found")
-        } 
-        return JSON.parse(productsFile).filter(product => product.code === id )
+        } else {
+            return JSON.parse(productsFile).filter(product => product.code == id )
+        }
     }
 }
 
