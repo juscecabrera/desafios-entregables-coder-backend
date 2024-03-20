@@ -26,20 +26,24 @@ router.get("/api/products", (req, res) => {
     res.send({productsLimited})
 });
 
+
 router.get("/api/products/:pid", async (req, res) => {
     const pid = req.params.pid;
     res.send(await PM.getProductById(pid))
 });
+
 
 router.post("/api/products", async (req, res) => {
     const response = await PM.addProduct(req.body)
     res.status(201).send(response)
 });
 
+
 router.put("/api/products/:pid" , async (req, res) => {
     const pid = req.params.pid;
     res.send(await PM.updateProduct(pid, req.body))
 });
+
 
 router.delete("/api/products/:pid", async (req, res) => {
     const pid = req.params.pid;

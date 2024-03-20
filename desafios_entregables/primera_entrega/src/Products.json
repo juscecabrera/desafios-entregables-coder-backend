@@ -22,5 +22,13 @@
 		"price": 10,
 		"thumbnail": "Sin imagen",
 		"stock": 100
+	},
+	{
+		"id": 4,
+		"title": "sandia",
+		"description": "roja",
+		"price": 10,
+		"thumbnail": "Sin imagen",
+		"stock": 100
 	}
 ]

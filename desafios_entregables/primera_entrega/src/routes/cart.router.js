@@ -7,7 +7,7 @@ const router = Router();
 const CM = new CartManager("./Cart.json");
 
 router.post("/api/cart", async (req, res) => {
-    const response = await CM.createCart(req.body)
+    const response = await CM.createCart([])
     res.status(201).send(response)
 });
 
@@ -19,7 +19,7 @@ router.post("/api/cart/:cid/product/:pid", async (req, res) => {
 
 router.get("/api/cart/:cid", async (req, res) => {
     const cid = req.params.cid;
-    res.send(await CM.getProductById(cid))
+    res.send(await CM.getCartById(cid))
 });
 
 
