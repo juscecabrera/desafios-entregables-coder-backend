@@ -2,7 +2,7 @@ import fs from "fs";
 
 export class CartManager {
     constructor() {
-        this.path = "./Cart.json"
+        this.path = "./src/Cart.json"
     }
 
     createCart() {
