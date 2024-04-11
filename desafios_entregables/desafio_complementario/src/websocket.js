@@ -1,9 +1,8 @@
 import { ProductManager } from "./dao/ProductManagerFS.js";
-const ProductService = new ProductManager('products.json');
-// import { productManagerDB } from "./dao/productManagerDB.js";
-// const ProductService = new productManagerDB();
+// const ProductService = new ProductManager('products.json');
+import { productManagerDB } from "./dao/productManagerDB.js";
+const ProductService = new productManagerDB();
 
-//Esto esta con DB
 
 export default (io) => {
     io.on("connection", (socket) => {

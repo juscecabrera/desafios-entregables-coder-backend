@@ -11,10 +11,6 @@ const productSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    code: {
-        type: String,
-        require: true
-    },
     price: {
         type: Number,
         require: true
@@ -27,15 +23,6 @@ const productSchema = mongoose.Schema({
     stock: {
         type: Number,
         require: true
-    },
-    category: {
-        type: String,
-        require: true
-    },
-    thumbnails: {
-        type: Array,
-        require: false,
-        default: []
     }
 });
 

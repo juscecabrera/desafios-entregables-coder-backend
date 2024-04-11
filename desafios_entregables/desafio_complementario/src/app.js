@@ -7,9 +7,14 @@ import __dirname from "./utils.js";
 import fs from "fs";
 import {Server} from "socket.io";
 import websocket from "./websocket.js";
+import mongoose from "mongoose"
 
 
 const app = express();
+
+//MongoDB connect
+const uri = "mongodb+srv://jusce240:omjGmRaUnnVjwVE3@cluster0.dlahfbw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+mongoose.connect(uri);
 
 //Handlebars
 app.engine("handlebars", handlebars.engine());

@@ -2,7 +2,7 @@ import fs from "fs";
 
 export class CartManager {
     constructor() {
-        this.path = "./src/Cart.json"
+        this.path = "../src/Cart.json"
     }
 
     createCart(products) {
@@ -48,7 +48,7 @@ export class CartManager {
         const indexCart = carts.findIndex(cart => cart.id == cid)
         const cartProducts = this.getCartById(cid)[0]["products"]; 
         cartProducts.push(newProductCart)
-        let cartFile = fs.readFileSync("./src/Cart.json", "utf8")
+        let cartFile = fs.readFileSync("../src/Cart.json", "utf8")
 
         const existProd = carts[indexCart].products.find(prod => prod.pid == pid)
 
@@ -64,7 +64,7 @@ export class CartManager {
             cart_id: carts.findIndex(cart => cart.id == cid)
         })
 
-        fs.writeFileSync("./src/Cart.json", JSON.stringify(carts, null, "\t"))
+        fs.writeFileSync("../src/Cart.json", JSON.stringify(carts, null, "\t"))
         
         return carts
        
@@ -73,13 +73,13 @@ export class CartManager {
                 id: parseInt(cid),
                 products: cartProducts
             }
-            const shoppingCart = JSON.parse(fs.readFileSync("./src/Cart.json", "utf8"));
+            const shoppingCart = JSON.parse(fs.readFileSync("../src/Cart.json", "utf8"));
             shoppingCart.push(newCart)
-            fs.writeFileSync("./src/Cart.json", JSON.stringify(shoppingCart, null, "\t"))
+            fs.writeFileSync("../src/Cart.json", JSON.stringify(shoppingCart, null, "\t"))
         }
 
         function getCartById(cid) {
-            let cartFile = fs.readFileSync("./src/Cart.json", "utf8")
+            let cartFile = fs.readFileSync("../src/Cart.json", "utf8")
     
             if(JSON.parse(cartFile).filter(cart => cart.id == cid).length ===0) {
                 return ("Not found")

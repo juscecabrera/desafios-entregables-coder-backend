@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { CartManager } from "../CartManager.js";
+import { CartManager } from "../dao/CartManagerFS.js";
 import fs from "fs";
 
 const router = Router();
 
-const CM = new CartManager("./Cart.json");
+const CM = new CartManager("../src/Cart.json");
 
 router.post("/api/cart", async (req, res) => {
     const response = await CM.createCart([])
