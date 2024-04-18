@@ -30,5 +30,21 @@
 		"price": 10,
 		"thumbnail": "Sin imagen",
 		"stock": 100
+	},
+	{
+		"id": 5,
+		"title": "peras",
+		"description": "verdes",
+		"price": 10,
+		"thumbnail": "Sin imagen",
+		"stock": 100
+	},
+	{
+		"id": 6,
+		"title": "uvas",
+		"description": "verdes",
+		"price": 10,
+		"thumbnail": "Sin imagen",
+		"stock": 100
 	}
 ]

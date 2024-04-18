@@ -1,7 +1,8 @@
 import express from "express";
 import cartRouter from "./routes/cart.router.js";
 import productsRouter from "./routes/products.router.js";
-import viewsRouter from "./routes/views.router.js";
+// import viewsRouter from "./routes/views.router.js";
+import viewsRouter2 from "./routes/views.router2.js";
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import fs from "fs";
@@ -30,7 +31,8 @@ app.use(express.static("public"));
 //Use routers
 app.use("/", cartRouter);
 app.use("/", productsRouter);
-app.use('/products', viewsRouter);
+// app.use('/products', viewsRouter);
+app.use('/products', viewsRouter2);
 
 
 const PORT = 8080;

@@ -14,7 +14,8 @@ router.post("/api/cart", async (req, res) => {
 router.post("/api/cart/:cid/product/:pid", async (req, res) => {
     const cid = req.params.cid;
     const pid = req.params.pid;
-    res.send(await CM.addProductCart(pid, cid))
+    let {quantity} = req.body;
+    res.send(await CM.addProductCart(pid, cid, quantity))
 });
 
 router.get("/api/cart/:cid", async (req, res) => {

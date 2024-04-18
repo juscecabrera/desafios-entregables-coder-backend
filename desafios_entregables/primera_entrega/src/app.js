@@ -8,15 +8,21 @@ import {Server} from "socket.io";
 
 const app = express();
 
-
+//Handlebars
 app.engine("handlebars", handlebars.engine());
-
 app.set("views",`${__dirname}/views`);
-
 app.set("view engine", "handlebars");
 
+//Middleware
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(express.static("public"));
+
+
+//Use routers
+app.use("/", cartRouter);
+app.use("/", productsRouter);
+
 
 const PORT = 8080;
 const httpServer = app.listen(PORT, () => {
@@ -25,9 +31,6 @@ const httpServer = app.listen(PORT, () => {
 
 const socketServer = new Server(httpServer);
 
-//Use routers
-app.use("/", cartRouter);
-app.use("/", productsRouter);
 
 const productsFile = fs.readFileSync("./src/Products.json", "utf8")
 

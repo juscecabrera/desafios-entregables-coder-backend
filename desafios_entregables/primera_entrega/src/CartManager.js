@@ -39,15 +39,34 @@ export class CartManager {
         }
     }
 
-    addProductCart(pid, cid) {
+    addProductCart(pid, cid, quantity = 1) {
         const newProductCart = {
             product: pid,
             quantity: 1
         };
+        const carts = this.getCart();
+        const indexCart = carts.findIndex(cart => cart.id == cid)
         const cartProducts = this.getCartById(cid)[0]["products"]; 
         cartProducts.push(newProductCart)
         let cartFile = fs.readFileSync("./src/Cart.json", "utf8")
 
+        const existProd = carts[indexCart].products.find(prod => prod.pid == pid)
+
+        if (existProd) {
+            existProd.quantity += quantity
+        } else {
+            carts[indexCart].products = [...carts[indexCart].products, {pid, quantity}]
+        }
+
+        console.log({
+            carts,
+            cart: carts.find(cart => cart.id == cid),
+            cart_id: carts.findIndex(cart => cart.id == cid)
+        })
+
+        fs.writeFileSync("./src/Cart.json", JSON.stringify(carts, null, "\t"))
+        
+        return carts
        
         function createNewCart() {
             const newCart = {
