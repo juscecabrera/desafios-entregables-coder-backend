@@ -30,7 +30,26 @@ router.get("/api/cart/:cid", async (req, res) => {
 
 //Esto es lo nuevo que agregue
 
-//To do
+//LISTO
+router.delete ("/api/cart/:cid", async (req, res) => {
+    //Elimina todos los productos del carrito :cid
+    //No eliminar el carrito, solo vaciarlo
+    try {
+        const cid = req.params.cid
+        const result = await CM.emptyCart(cid)
+        res.send({
+            status: "success",
+            payload: result
+        }); 
+    } catch (err) {
+        res.status(400).send({
+            status: "error",
+            message: err.message
+        })
+    }
+});
+
+//LISTO
 router.delete ("/api/cart/:cid/product/:pid", async (req, res) => {
     //deberá eliminar del carrito el producto seleccionado.
     try {
@@ -68,14 +87,15 @@ router.put ("api/cart/:cid", async (req, res) => {
     }
 });
 
-//To do
-router.put ("api/cart/:cid/products/:pid", async (req, res) => {
+//FUNCIONA
+router.put ("/api/cart/:cid/product/:pid", async (req, res) => {
     //Actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body
     //Actualiza SOLO la cantidad, mas no el producto
     try {
         const cid = req.params.cid;
         const pid = req.params.pid;
-        const result = await CM.updateQuantity(cid, pid);
+        let {quantity} = req.body;
+        const result = await CM.updateQuantity(cid, pid, quantity);
         res.send({
             status: "success",
             payload: result
@@ -87,24 +107,7 @@ router.put ("api/cart/:cid/products/:pid", async (req, res) => {
         })
     }
 });
-//To do
-router.delete (" api/cart/:cid", async (req, res) => {
-    //Elimina todos los productos del carrito :cid
-    //No eliminar el carrito, solo vaciarlo
-    try {
-        const cid = req.params.cid
-        const result = await CM.emptyCart(cid)
-        res.send({
-            status: "success",
-            payload: result
-        }); 
-    } catch (err) {
-        res.status(400).send({
-            status: "error",
-            message: err.message
-        })
-    }
-});
+
 
 
 
