@@ -12,7 +12,7 @@ router.post("/api/cart", async (req, res) => {
     res.status(201).send(response)
 });
 
-//LISTO (faltaria solo que aumente en uno la quantity cuando ya existe el producto )
+//LISTO
 router.post("/api/cart/:cid/product/:pid", async (req, res) => {
     //Este tiene que agregar productos a un carrito
     const cid = req.params.cid;

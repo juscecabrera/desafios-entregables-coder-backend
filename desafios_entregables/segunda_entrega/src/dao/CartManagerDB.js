@@ -27,20 +27,17 @@ class CartManagerDB {
     }
 
     //FUNCIONA
-    // faltaria buscar si el producto existe y aumentar la quantity en uno si lo encuentra
     async addProductCart(cid, pid, quantity) {
         try {           
             const cart = await cartModel.findOne({_id: cid});
 
             for (let i = 0; i < cart.products.length; i++) {
-                const existeProd = cart.products[0].product.id
+                const existeProd = cart.products[i].product.id
         
                 if (existeProd) {
-                    //Falta el codigo que agregue uno a quantity y sacar los console.log
-                  console.log(`Existe el producto con id: ${existeProd}`)  
-                  console.log("Aqui agregar 1 a quantity")
+                  cart.products[i].quantity++
+                  await cartModel.updateOne({_id: cid}, cart)
                 } else {
-                    console.log(`No existe el producton con id: ${existeProd}`)
                     cart.products.push({product: pid, quantity: quantity})
                     await cartModel.updateOne({_id:cid}, cart)
                     console.log(JSON.stringify(cart, null, "\t"))
