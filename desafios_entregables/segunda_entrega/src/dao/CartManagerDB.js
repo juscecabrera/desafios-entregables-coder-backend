@@ -33,14 +33,14 @@ class CartManagerDB {
             const cart = await cartModel.findOne({_id: cid});
 
             for (let i = 0; i < cart.products.length; i++) {
-                const existProd = cart.products[0].product.id
+                const existeProd = cart.products[0].product.id
         
-                if (existProd) {
+                if (existeProd) {
                     //Falta el codigo que agregue uno a quantity y sacar los console.log
-                  console.log(`Existe el producto con id: ${existProd}`)  
+                  console.log(`Existe el producto con id: ${existeProd}`)  
                   console.log("Aqui agregar 1 a quantity")
                 } else {
-                    console.log(`No existe el producton con id: ${existProd}`)
+                    console.log(`No existe el producton con id: ${existeProd}`)
                     cart.products.push({product: pid, quantity: quantity})
                     await cartModel.updateOne({_id:cid}, cart)
                     console.log(JSON.stringify(cart, null, "\t"))
