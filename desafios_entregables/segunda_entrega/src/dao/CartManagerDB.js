@@ -76,27 +76,23 @@ class CartManagerDB {
         }
     }
     
-    //FALTA
-    async updateCart(cid) {
+    //FUNCIONA
+    async updateCart(cid, product, quantity) {
         //Tiene que actualizar los productos Y cantidades de un carrito
+        //Desde el body
         try {
             const cart = await this.getCartByID(cid)
 
-            for (let i = 0; i < cart.products.length; i++) {
-                const existeProd = cart.products[i].product.id
-
-                if(existeProd == pid){
-                    // cart.products.splice(i,1)
-                    await cartModel.updateOne({_id: cid}, cart)
-                    return console.log(`Se elimino el producto con id ${pid} del carrito`)
-                } else {
-                    return console.log(`No existe el producto con id ${pid}`)
-                }
+            if(cart){
+                cart.products = {product: product, quantity: quantity}
+                await cartModel.updateOne({_id:cid}, cart)
+                return console.log(cart.products)
+            } else {
+                return console.log(`No existe el carrito con id ${cid}`)
             }
-            console.log(cart.products)
         } catch(err) {
             console.error(err.message);
-            throw new Error("Error al actualizar el producto en el carrito")
+            throw new Error(`Error al actualizar los productos en el carrito ${cid}`)
         }
     }
 

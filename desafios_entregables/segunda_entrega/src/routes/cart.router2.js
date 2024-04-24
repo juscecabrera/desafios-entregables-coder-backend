@@ -17,7 +17,7 @@ router.post("/api/cart/:cid/product/:pid", async (req, res) => {
     //Este tiene que agregar productos a un carrito
     const cid = req.params.cid;
     const pid = req.params.pid;
-    let {quantity} = req.body;
+    let { quantity } = req.body;
     res.send(await CM.addProductCart(cid, pid, quantity))
 });
 
@@ -69,12 +69,14 @@ router.delete ("/api/cart/:cid/product/:pid", async (req, res) => {
 });
 
 //To do
-router.put ("api/cart/:cid", async (req, res) => {
+router.put ("/api/cart/:cid", async (req, res) => {
     //actualizar el carrito con un arreglo de productos con el formato especificado arriba.
-    //Recibe todo el array con los productos y cantidades nuevas
+    //Recibe todo el array con los productos y cantidades nuevas desde el body
     try {
         const cid = req.params.cid;
-        const result = await CM.updateCart(cid)
+        let {product} = req.body;
+        let {quantity} = req.body;
+        const result = await CM.updateCart(cid, product, quantity)
         res.send({
             status: "success",
             payload: result
