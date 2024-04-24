@@ -1,0 +1,23 @@
+[
+	{
+		"id": 12,
+		"title": "manzanas",
+		"description": "rojas",
+		"price": "20",
+		"stock": "100"
+	},
+	{
+		"id": 13,
+		"title": "uvas",
+		"description": "verdes",
+		"price": "10",
+		"stock": "100"
+	},
+	{
+		"id": 14,
+		"title": "manzanas",
+		"description": "rojas",
+		"price": "10",
+		"stock": "100"
+	}
+]
