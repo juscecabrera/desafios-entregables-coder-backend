@@ -80,6 +80,7 @@ class CartManagerDB {
     async updateCart(cid, product, quantity) {
         //Tiene que actualizar los productos Y cantidades de un carrito
         //Desde el body
+        //Postman Body: {"product": "661763bf4ddd42bd4870fd3e", "quantity": 3}
         try {
             const cart = await this.getCartByID(cid)
 
@@ -99,6 +100,7 @@ class CartManagerDB {
     //FUNCIONA
     async updateQuantity(cid, pid, quantity) {
         //Tiene que actualizar SOLO las cantidades de un producto en un carrito especifico
+        //Postman Body: {"quantity": 5}
         try {
             const cart = await cartModel.findOne({_id: cid});
 

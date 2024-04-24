@@ -33,7 +33,7 @@ app.use(express.static("public"));
 app.use("/", cartRouter2);
 app.use("/", productsRouter);
 // app.use('/products', viewsRouter);
-app.use('/products', viewsRouter2);
+app.use('/', viewsRouter2);
 
 
 const PORT = 8080;
