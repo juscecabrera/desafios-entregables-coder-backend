@@ -2,6 +2,8 @@ import { ProductManager } from "./dao/ProductManagerFS.js";
 // const ProductService = new ProductManager('products.json');
 import { productManagerDB } from "./dao/productManagerDB.js";
 const ProductService = new productManagerDB();
+import { CartManagerDB } from "./dao/CartManagerDB.js";
+const CartService = new CartManagerDB();
 
 
 export default (io) => {
@@ -26,5 +28,14 @@ export default (io) => {
                 socket.emit("statusError", error.message);
             }
         });
+
+        socket.on("addProductCart", async (data) => {
+            try {
+                const result = await CartService.addProductCart(data.pid);
+                socket.emit("publishProducts", result);
+            } catch (error) {
+                socket.emit("statusError", error.message);
+            }
+        } )
     });
 }

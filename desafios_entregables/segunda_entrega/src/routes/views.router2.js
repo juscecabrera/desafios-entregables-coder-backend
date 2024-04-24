@@ -97,14 +97,19 @@ router.get("/products/limit=:lim/page=:page/sort=:sort/query=:query", async (req
 });
 
 
-
 router.get("/cart/:cid", async (req,res) => {
-    let cart = req.params.cid
+    let cid = req.params.cid
+
+    const result = await cartModel.findOne({_id: cid})
+
+    let products = result.products.map(prod => prod.product)
+    console.log(products)
     res.render(
         "carts",
         {
             title: "Carrito",
-            products: await cartModel.find({_id: cart})
+            products: products,
+            
         }
     )
 })

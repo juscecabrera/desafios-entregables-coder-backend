@@ -2,13 +2,12 @@
     <h1>Carrito</h1>
     <div class="products-box">
         {{#each products}}
-            <div class="product-card">
                 <h3>{{this.title}}</h3>
+                <p class="description">Descripción: {{this.description}}</p>
+                <p class="price">Precio: {{this.price}}</p>
+                <p>Stock: {{this.stock}}</p>
                 <hr>
-                <p>Categoria: {{this.category}}</p>
-                <p>Descripción: {{this.description}}</p>
-                <p>Precio: $ {{this.price}}</p>
-            </div>
         {{/each}}
+        
     </div>
 </div>

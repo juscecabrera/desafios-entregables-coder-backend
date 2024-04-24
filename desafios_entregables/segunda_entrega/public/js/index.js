@@ -51,3 +51,7 @@ function cleanForm() {
     $('#price').value = '';
     $('#stock').value = '';
 }
+
+function addProductToCart(pid) {
+    socket.emit("addProductCart", {pid})
+}

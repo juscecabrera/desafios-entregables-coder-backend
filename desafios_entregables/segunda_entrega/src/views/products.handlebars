@@ -4,10 +4,13 @@
         {{#each products}}
             <div class="product-card">
                 <h3>{{this.title}}</h3>
-                <hr>
+                
                 <p>Descripción: {{this.description}}</p>
                 <p>Precio: $ {{this.price}}</p>
                 <p>Stock: {{this.stock}}</p>
+                <button onclick="addProductCart({{this.id}})">Agregar a carrito</button>
+                <a><button>Ver detalles</button></a>
+                <hr>
             </div>
         {{/each}}
         <hr>
