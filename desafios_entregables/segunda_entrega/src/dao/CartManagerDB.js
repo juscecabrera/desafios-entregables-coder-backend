@@ -31,30 +31,28 @@ class CartManagerDB {
     async addProductCart(cid, pid, quantity) {
         try {           
             const cart = await cartModel.findOne({_id: cid});
-            
-            //Estoy intentando crear una funcion que encuentre si el producto esta o no
-            const existProd = cart.products[0]
-            
-            let resultado = existProd.find(prod => prod._id == 1)
 
-            if (resultado) {
-              console.log(resultado)  
-            } else {
-                console.log("no funciona")
+            for (let i = 0; i < cart.products.length; i++) {
+                const existProd = cart.products[0].product.id
+        
+                if (existProd) {
+                    //Falta el codigo que agregue uno a quantity y sacar los console.log
+                  console.log(`Existe el producto con id: ${existProd}`)  
+                  console.log("Aqui agregar 1 a quantity")
+                } else {
+                    console.log(`No existe el producton con id: ${existProd}`)
+                    cart.products.push({product: pid, quantity: quantity})
+                    await cartModel.updateOne({_id:cid}, cart)
+                    console.log(JSON.stringify(cart, null, "\t"))
+                }
             }
-            
-            //Dejar esto de abajo porque funciona
-            /*
-            cart.products.push({product: pid, quantity: quantity})
-            await cartModel.updateOne({_id:cid}, cart)
-            console.log(JSON.stringify(cart, null, "\t"))
-            */
         } catch (err) {
             console.error(err.message);
             throw new Error("Error al agregar el producto al carrito")
         }
     }
 
+    //FALTA
     async deleteProductInCart(cid, pid) {
         //deberá eliminar del carrito el producto seleccionado.
         //Buscar el carrito con id == cid y eliminar el producto con id == pid dentro de ese carrito
@@ -66,6 +64,7 @@ class CartManagerDB {
         }
     }
     
+    //FALTA
     async updateCart(cid) {
         //Tiene que actualizar los productos Y cantidades de un carrito
         //Usar el updateOne
@@ -78,6 +77,7 @@ class CartManagerDB {
         }
     }
 
+    //FALTA
     async updateQuantity(cid, pid) {
         //Tiene que actualizar SOLO las cantidades de un producto en un carrito especifico
         //1. Encontrar el carrito con id == cid con funcion getCartById
@@ -91,6 +91,7 @@ class CartManagerDB {
         }
     }
     
+    //FALTA
     async emptyCart(cid) {
         //Vaciara el carrito, pero no lo eliminará
         //1. Encontrar el carrito con id == cid con funcion getCartById
