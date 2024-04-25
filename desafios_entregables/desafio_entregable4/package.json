@@ -14,7 +14,7 @@
     "websockets": "^0.2.0"
   },
   "type": "module",
-  "name": "segunda_entrega",
+  "name": "desafio_entregable4",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
