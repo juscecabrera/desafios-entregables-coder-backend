@@ -101,7 +101,7 @@ router.get("/products/limit=:lim/page=:page/sort=:sort/query=:query", async (req
 router.get("/cart/:cid", async (req,res) => {
     let cid = req.params.cid
 
-    const result = await cartModel.findOne({_id: cid})
+    const result = await cartModel.findOne({_id: cid}).lean()
 
     let products = result.products.map(prod => prod.product)
     console.log(products)
@@ -120,7 +120,7 @@ router.get("/", (req, res) => {
         "index",
         {
             title: "Bienvenido!",
-            /*user: req.session.user*/ 
+            user: req.session.user
             /* no se por que me sale el segundo user como indefinido. Me pasa lo mismo cuando uso el middleware auth.  */
         }
     )
