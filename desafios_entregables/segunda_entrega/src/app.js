@@ -23,18 +23,6 @@ app.engine("handlebars", handlebars.engine());
 app.set("views",`${__dirname}/views`);
 app.set("view engine", "handlebars");
 
-//Middleware
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(express.static("public"));
-
-
-//Use routers
-app.use("/", cartRouter2);
-app.use("/", productsRouter);
-// app.use('/products', viewsRouter);
-app.use("/", viewsRouter2);
-
 //Login
 app.use(session({
     store: mongoStore.create(
@@ -48,6 +36,20 @@ app.use(session({
     saveUninitialized: true
     }
 ))
+
+
+
+//Middleware
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.static("public"));
+
+
+//Use routers
+app.use("/", cartRouter2);
+app.use("/", productsRouter);
+// app.use('/products', viewsRouter);
+app.use("/", viewsRouter2);
 
 app.use("/api/sessions", usersRouter)
 

@@ -133,16 +133,11 @@ router.get("/register", (req, res) => {
     )
 })
 
-router.get("/", (req, res) => {
-    //Este console.log me sale indefinido, por ejemplo. Sigo sin saber por que no recibe el user de users.router
-    // No tiene el middleware de auth porque me sale indefinido tambien
-    console.log(req.session)
+router.get("/", auth, (req, res) => {
     res.render(
         "index",
         {
-            title: "Bienvenido Usuario!",
-            user: req.session   
-            
+            user: req.session.user   
         }
     )
 });

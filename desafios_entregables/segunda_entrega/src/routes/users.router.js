@@ -58,8 +58,6 @@ router.post("/login", async (req,res) => {
             return res.redirect("/login");
         } 
         
-        //Hice esta modificacion para intentar mandar el req.session.user sin contraseña
-        
         
         const userForSession = {
             _id: result._id,
@@ -70,8 +68,6 @@ router.post("/login", async (req,res) => {
         };
 
         req.session.user = userForSession;
-        //Este console.log si funciona, pero el de views.router2 no, no lo esta mandando
-        console.log(req.session.user)
         res.redirect("/");
     } catch(err) {
         console.error(err)
