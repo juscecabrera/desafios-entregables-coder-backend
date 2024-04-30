@@ -114,18 +114,6 @@ router.get("/cart/:cid", async (req,res) => {
         }
     )
 })
-
-router.get("/", (req, res) => {
-    res.render(
-        "index",
-        {
-            title: "Bienvenido!",
-            user: req.session.user
-            /* no se por que me sale el segundo user como indefinido. Me pasa lo mismo cuando uso el middleware auth.  */
-        }
-    )
-});
-
 router.get("/login", (req, res) => {
     res.render(
         "login",
@@ -144,4 +132,20 @@ router.get("/register", (req, res) => {
         }
     )
 })
+
+router.get("/", (req, res) => {
+    //Este console.log me sale indefinido, por ejemplo. Sigo sin saber por que no recibe el user de users.router
+    // No tiene el middleware de auth porque me sale indefinido tambien
+    console.log(req.session)
+    res.render(
+        "index",
+        {
+            title: "Bienvenido Usuario!",
+            user: req.session   
+            
+        }
+    )
+});
+
+
 export default router;
