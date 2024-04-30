@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import userModel from"../dao/models/userModel.js";
+import { createHash, isValidPassword } from "../functionsUtils.js";
 
 const router = Router();
 
@@ -15,12 +16,16 @@ router.post("/register", async (req,res) => {
             return res.status(400).send("El usuario ya existe")
         }
 
+        if(!email || !password) {
+            throw new Error ("Error de registro")
+        }
+
         const newUser = new userModel({
             first_name,
             last_name,
             email,
             age,
-            password
+            password: createHash(password)
         });
 
         await newUser.save();
@@ -46,18 +51,18 @@ router.post("/register", async (req,res) => {
 
 router.post("/login", async (req,res) => {
     try {
-        
-        const result = await userModel.findOne({email: req.body.email}).lean();
+        const { first_name, last_name, email, age, password } = req.body;
+
+        const result = await userModel.findOne({ email }).lean();
 
         if (!result) {
             console.log("El usuario no existe")
             return res.redirect("/login");
         }
-        if (req.body.password !== result.password) {
+        if (!isValidPassword(result, password)) {
             console.log("Contraseña incorrecta")
             return res.redirect("/login");
         } 
-        
         
         const userForSession = {
             _id: result._id,
@@ -68,9 +73,11 @@ router.post("/login", async (req,res) => {
         };
 
         req.session.user = userForSession;
+        console.log("Sesión iniciada correctamente")
         res.redirect("/");
     } catch(err) {
         console.error(err)
+        res.status(500).send("Error del servidor")
         res.redirect("/login");
     }
 });
