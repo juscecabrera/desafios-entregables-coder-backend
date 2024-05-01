@@ -68,26 +68,6 @@ router.post("/login", async (req,res) => {
 
         const result = await userModel.findOne({ email }).lean();
 
-        /*
-        En el 01:47:35 de la grabación de la clase de Autorización y autenticación, el profe mete lo siguiente:
-        Para identificar si existe el usuario o no. Lo estoy comentando porque creo que yo ya tengo esa funcionalidad
-        if(!req.user) {
-            return res.send(401).send({
-                status: "error",
-                message: "Error Login!"
-            });
-        }
-
-        req.session.user = {
-            first_name: req.user.first_name,
-            last_name: req.user.last_name,
-            email: req.user.email,
-            age: req.user.age
-        }
-
-        req.user es un parametro que se establece en la estrategia de passport, cuando verificas que existe y que la contraseña es valida
-        */
-
         if (!result) {
             console.log("El usuario no existe")
             return res.redirect("/login");
@@ -121,6 +101,18 @@ router.get("/failLogin", (req, res) => {
         message: "Inicio de sesión fallido"
     })
 })
+
+router.get("/github", passport.authenticate('github', {scope: ['user:email']}), (req, res) => {
+    res.send({
+        status: 'success',
+        message: 'Success'
+    });
+});
+
+router.get("/githubcallback", passport.authenticate('github', {failureRedirect: '/login'}), (req, res) => {
+    req.session.user = req.user;
+    res.redirect('/');
+});
 
 
 export default router;

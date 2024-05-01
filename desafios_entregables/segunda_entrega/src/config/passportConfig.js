@@ -1,11 +1,47 @@
 import passport from "passport";
 import local from "passport-local";
-
+import GitHubStrategy from "passport-github2";
 import userModel from "../dao/models/userModel.js";
 import { createHash, isValidPassword } from "../functionsUtils.js";
 
+/*
+Mandé el App ID, el Client ID y el Client Secret por el chat de CoderHouse. Así los profes pueden corregir mi trabajo con las credenciales sin que sean públicas. 
+*/
+
 const localStrategy = local.Strategy;
 const initializatePassport = () => {
+
+    const CLIENT_ID = "";
+    const SECRET_ID = "";
+
+    passport.use("github", new GitHubStrategy(
+        {
+            clientID: CLIENT_ID,
+            clientSecret: SECRET_ID,
+            callbackURL: "http://localhost:8080/api/sessions/githubcallback"
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                console.log(profile);
+                
+                let user = await userModel.findOne({email: profile._json.login})
+                if(!user) {
+                    let newUser = {
+                        first_name: profile._json.name,
+                        email: profile._json.login,
+                        password: ""
+                    }
+                    let result = await userModel.create(newUser);
+                    done(null, result)
+                } else {
+                    done(null, user)
+                }
+            } catch(err) {
+                return done(err)
+            }
+        }
+    ))
+
     passport.use("register", new localStrategy(
         {
             passReqToCallback: true,
