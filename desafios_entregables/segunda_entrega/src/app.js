@@ -10,7 +10,8 @@ import mongoose from "mongoose";
 import mongoStore from "connect-mongo";
 import session from "express-session";
 import usersRouter from "./routes/users.router.js"
-
+import passport from "passport";
+import initializatePassport from "./config/passportConfig.js";
 
 const app = express();
 
@@ -37,7 +38,9 @@ app.use(session({
     }
 ))
 
-
+initializatePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Middleware
 app.use(express.urlencoded({extended: true}));
