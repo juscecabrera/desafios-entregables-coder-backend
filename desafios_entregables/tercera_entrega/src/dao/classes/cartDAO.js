@@ -1,4 +1,6 @@
 import cartModel from "../models/cartModel.js";
+import productModel from "../models/productModel.js";
+import ticketModel from "../models/ticketModel.js";
 
 export default class Cart {
 
@@ -129,21 +131,28 @@ export default class Cart {
         //4. Una vez finalizada la compra, el carrito deberá contener solo los productos que no pudieron comprarse. Se filtran los comprados y se quedan los que no tenian stock.
         try {
             let amount = 0
-            const purchase_datatime = Date.now()
+            const purchase_datatime = Date()
             const cart = await cartModel.findOne({_id: cid});
+            const code = Date.now() + Math.floor(Math.random() * 10000 + 1)
             cart.products.map(prod => {
                 if (prod.quantity < prod.product.stock) {
                     amount += prod.quantity * prod.product.price
                     console.log("Suficiente stock de:", prod.product.title , "Stock:", prod.product.stock, "Quantity:", prod.quantity)
+                    return productModel.updateOne({_id: prod.product.id}, {"stock": prod.product.stock - prod.quantity});
                 } else {
-                    console.log("No hay suficiente stock de: ", prod.product.title)
+                    console.log("No hay suficiente stock de:", prod.product.title)
                 }
             })
-            console.log("Precio total: ", amount)
-            console.log("Fecha:", purchase_datatime)
-            // const purchaser = 
-            
+            const ticket = {
+                code: code.toString(),
+                purchase_datatime: purchase_datatime,
+                amount: amount,
+                purchaser: "prueba6@gmail.com"
+            }
 
+            const result = await ticketModel.create(ticket)
+            console.log(result)
+            return result
         } catch (err) {
             console.error(err.message)
             throw new Error("Error al finalizar compra")

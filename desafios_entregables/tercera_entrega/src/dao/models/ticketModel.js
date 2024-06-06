@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const ticketCollection = "tickets";
 
-const ticketSchema = mongoose.Schema({
+const ticketSchema = new mongoose.Schema({
     //Debe autogenerarse
     code: { 
         type: String,
