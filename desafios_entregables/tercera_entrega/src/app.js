@@ -3,9 +3,9 @@ import cartRouter from "./routes/cart.router.js";
 import productsRouter from "./routes/products.router.js";
 import viewsRouter from "./routes/views.router.js";
 import handlebars from "express-handlebars";
-import __dirname from "./utils/utils.js";
+import __dirname from "./utils.js";
 import {Server} from "socket.io";
-// import websocket from "./websocket.js";
+import websocket from "./websocket.js";
 import mongoose from "mongoose";
 import mongoStore from "connect-mongo";
 import session from "express-session";
@@ -64,5 +64,5 @@ const httpServer = app.listen(PORT, () => {
 
 const io = new Server(httpServer);
 
-// websocket(io);
+websocket(io);
 

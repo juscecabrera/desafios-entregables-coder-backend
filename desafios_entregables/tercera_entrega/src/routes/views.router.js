@@ -133,8 +133,7 @@ router.get("/register", (req, res) => {
     )
 })
 
-router.get("/", auth, (req, res) => {
-    console.log(req.session.user)
+router.get("/current", auth, (req, res) => {
     res.render(
         "index",
         {

@@ -24,6 +24,10 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    role: {
+        type: String, 
+        require: true
+    }
 });
 
 const userModel = mongoose.model(userCollection, userSchema);

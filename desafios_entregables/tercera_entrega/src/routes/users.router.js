@@ -12,7 +12,7 @@ router.post("/register", async (req,res) => {
     try {
         passport.authenticate("register", { failureRedirect: "/api/sessions/failRegister" })
 
-        const { first_name, last_name, email, age, password } = req.body;
+        const { first_name, last_name, email, age, password, role } = req.body;
 
         const userExists = await userModel.findOne({ email })
 
@@ -29,7 +29,8 @@ router.post("/register", async (req,res) => {
             last_name,
             email,
             age,
-            password: createHash(password)
+            password: createHash(password),
+            role
         });
 
         await newUser.save();
@@ -40,6 +41,7 @@ router.post("/register", async (req,res) => {
             last_name,
             email,
             age,
+            role
         };
 
         req.session.user = userForSession;
@@ -83,11 +85,12 @@ router.post("/login", async (req,res) => {
             last_name: result.last_name,
             email: result.email,
             age: result.age,
+            role: result.role
         };
 
         req.session.user = userForSession;
         console.log("Sesión iniciada correctamente")
-        res.redirect("/");
+        res.redirect("/current");
     } catch(err) {
         console.error(err)
         res.status(500).send("Error del servidor")

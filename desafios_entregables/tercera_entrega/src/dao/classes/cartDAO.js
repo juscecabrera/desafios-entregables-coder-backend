@@ -120,15 +120,7 @@ export default class Cart {
         }
     }
 
-    //Terminar esto
     async purchaseCart(cid) {
-        //1. Corroborar stock de los productos 
-        //1a. Producto tiene suficiente stock = restarlo del stock del producto y continuar
-        //1b. Producto NO tiene suficiente stock = no agregar el producto al proceso de compra 
-        
-        //2. Al final, utilizar el servicio de tickets para poder generar un ticket con los datos de la compra
-        //3. En caso de existir una compra no completada, devolver el arreglo de los ids de los productos que no pudieron procesarse
-        //4. Una vez finalizada la compra, el carrito deberá contener solo los productos que no pudieron comprarse. Se filtran los comprados y se quedan los que no tenian stock.
         try {
             let amount = 0
             const purchase_datatime = Date()
