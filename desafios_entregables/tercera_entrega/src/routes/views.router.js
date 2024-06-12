@@ -2,6 +2,7 @@ import { Router } from "express";
 import productModel from "../dao/models/productModel.js";
 import cartModel from "../dao/models/cartModel.js";
 import { auth } from "../middlewares/auth.js"
+import { authorization } from "../middlewares/authorization.js";
 
 const router = Router();
 
@@ -133,11 +134,24 @@ router.get("/register", (req, res) => {
     )
 })
 
-router.get("/current", auth, (req, res) => {
+router.get("/current", authorization("user"), (req, res) => {
     res.render(
         "index",
         {
-            user: req.session.user   
+            user: req.session.user,
+            admin: false,
+            is_user: true
+        }
+    )
+});
+
+router.get("/private", authorization("admin"), (req, res) => {
+    res.render(
+        "index",
+        {
+            user: req.session.user,
+            admin: true,
+            is_user: false
         }
     )
 });

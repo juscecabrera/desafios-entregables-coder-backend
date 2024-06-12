@@ -29,7 +29,7 @@ app.use(session({
     store: mongoStore.create(
         {
             mongoUrl: uri,
-            ttl: 15
+            ttl: 60
         }
     ),
     secret: 'secretPhrase',

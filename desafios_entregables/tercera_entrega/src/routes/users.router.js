@@ -90,7 +90,12 @@ router.post("/login", async (req,res) => {
 
         req.session.user = userForSession;
         console.log("Sesión iniciada correctamente")
-        res.redirect("/current");
+        if (result.role === "admin") {
+            res.redirect("/private");
+        } else {
+            res.redirect("/current");
+        }
+        
     } catch(err) {
         console.error(err)
         res.status(500).send("Error del servidor")
