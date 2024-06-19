@@ -1,0 +1,17 @@
+<div class="box">
+    <h1>Bienvenido {{user.first_name}}!</h1>
+    <hr>
+    <div class="box">
+        <p>Nombre: {{user.first_name}}</p>
+        <p>Apellido: {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Age: {{user.age}}</p>
+        <p>Role: {{user.role}}</p>
+        {{#if admin }}
+            <a href="http://localhost:8080/products/realtimeproducts">Ver productos</a>
+        {{/if}}
+        {{#if is_user}}
+            <a href="http://localhost:8080/api/cart/662800059d42217f3569bf43">Ver carrito</a>
+        {{/if}}
+    </div>
+</div>
