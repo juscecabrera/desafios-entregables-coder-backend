@@ -37,6 +37,7 @@ export const emptyCart = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
 };
 
@@ -56,6 +57,7 @@ export const deleteProductInCart = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
 };
 
@@ -77,6 +79,7 @@ export const updateCart = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
 };
 
@@ -97,6 +100,7 @@ export const updateQuantity = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
 };
 
@@ -115,5 +119,6 @@ export const purchaseCart = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
 }

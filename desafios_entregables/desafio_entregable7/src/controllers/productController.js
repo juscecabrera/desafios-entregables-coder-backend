@@ -2,6 +2,7 @@ import { productService } from "../repositories/index.js";
 import { generateProducts } from "../utils/fakerUtils.js";
 import CustomError from "../services/errors/CustomError.js";
 import { serverError } from "../services/errors/info.js";
+import { addLogger } from "../logger.js";
 
 
 export const getProducts = async (req, res) => {
@@ -33,6 +34,7 @@ export const addProduct = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
     
 };
@@ -53,6 +55,7 @@ export const updateProduct = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
     
 };
@@ -73,6 +76,7 @@ export const deleteProduct = async (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
         
 };
@@ -95,7 +99,18 @@ export const mockingProducts = (req, res) => {
             message: "Internal server error",
             code: 0
         })
+        req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
     }
+}
+
+export const loggerTest = (req, res) => {
+    res.send("Probando loggerTest")
+    req.logger.debug(`${new Date().toDateString()} ${req.method} ${req.url}`)
+    req.logger.http(`${new Date().toDateString()} ${req.method} ${req.url}`)
+    req.logger.info(`${new Date().toDateString()} ${req.method} ${req.url}`)
+    req.logger.warning(`${new Date().toDateString()} ${req.method} ${req.url}`)
+    req.logger.error(`${new Date().toDateString()} ${req.method} ${req.url}`)
+    req.logger.fatal(`${new Date().toDateString()} ${req.method} ${req.url}`)
 }
 
 

@@ -12,6 +12,7 @@ import session from "express-session";
 import usersRouter from "./routes/users.router.js"
 import passport from "passport";
 import initializatePassport from "./config/passportConfig.js";
+import { addLogger } from "./logger.js";
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Middleware
+app.use(addLogger);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static("public"));
@@ -53,6 +55,7 @@ app.use("/", cartRouter);
 app.use("/", productsRouter);
 // app.use('/products', viewsRouter);
 app.use("/", viewsRouter);
+
 
 app.use("/api/sessions", usersRouter)
 
