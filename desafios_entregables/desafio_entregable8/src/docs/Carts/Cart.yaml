@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: Cart API
+  version: 1.0.0
+  description: API para la gestión de carritos de compra
+
+paths:
+  /api/cart:
+    post:
+      summary: Crea un nuevo carrito
+      operationId: createCart
+      responses:
+        '201':
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/cart/{cid}/product/{pid}:
+    post:
+      summary: Añadir un producto al carrito
+      operationId: addProductCart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: Producto añadido al carrito
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      summary: Eliminar un producto del carrito
+      operationId: deleteProductInCart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto eliminado del carrito
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/cart/{cid}:
+    get:
+      summary: Obtener un carrito por ID
+      operationId: getCartByID
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      summary: Vaciar el carrito
+      operationId: emptyCart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito vaciado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/cart/{cid}/update:
+    put:
+      summary: Actualizar productos en el carrito
+      operationId: updateCart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: string
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: Carrito actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/cart/{cid}/product/{pid}/quantity:
+    put:
+      summary: Actualizar cantidad de un producto en el carrito
+      operationId: updateQuantity
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: Cantidad de producto actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/cart/{cid}/purchase:
+    post:
+      summary: Realizar la compra del carrito
+      operationId: purchaseCart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito comprado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object

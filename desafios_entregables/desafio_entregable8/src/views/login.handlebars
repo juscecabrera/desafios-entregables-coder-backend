@@ -1,0 +1,13 @@
+<div class="box">
+    <h1>Iniciar sesión</h1>
+    <form class="box" method="post" action="/api/sessions/login">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <button type="submit">Login</button>
+    </form>
+    <br>
+    <span><a href="/register" target="_self">Register</a></span>
+    <a href="/api/sessions/github"><button>Entrar con Github</button></a>
+</div>
