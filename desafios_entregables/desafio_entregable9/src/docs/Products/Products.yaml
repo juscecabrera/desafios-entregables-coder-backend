@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.0.0
+  description: API para la gestión de productos
+
+paths:
+  /api/products:
+    get:
+      summary: Obtener todos los productos
+      operationId: getProducts
+      responses:
+        '200':
+          description: Lista de productos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: object
+
+    post:
+      summary: Añadir un nuevo producto
+      operationId: addProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Producto añadido exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/products/{pid}:
+    get:
+    summary: Obtener un producto por ID
+    operationId: getProductByID
+    parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Producto obtenido exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+    put:
+      summary: Actualizar un producto existente
+      operationId: updateProduct
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Producto actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+
+    delete:
+      summary: Eliminar un producto existente
+      operationId: deleteProduct
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+
+   
+
+  /api/products/mocking:
+    get:
+      summary: Generar productos de prueba
+      operationId: mockingProducts
+      responses:
+        '200':
+          description: Productos de prueba generados exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      type: object
+
+  /api/products/logger-test:
+    get:
+      summary: Probar el logger
+      operationId: loggerTest
+      responses:
+        '200':
+          description: Prueba de logger exitosa
+          content:
+            text/plain:
+              schema:
+                type: string
