@@ -1,0 +1,35 @@
+<div class="box">
+    <h1>Carrito</h1>
+    <div class="products-box">
+        {{#each products}}
+        <div class="product-card">
+            <h3>{{this.title}}</h3>
+            <p class="description">Descripción: {{this.description}}</p>
+            <p class="price">Precio: {{this.price}}</p>
+            <p>Quantity: {{this.quantity}}</p>
+            <hr>
+        </div>
+        {{/each}}
+    </div>
+
+        <p>Total quantity: {{totalQuantity}} </p>
+        <p>Total price: {{totalPrice}} </p>
+        <form method="post" action="/api/cart/{{cid}}/purchase">
+            <button type="submit">Buy cart</button>
+        </form>
+        <a href="/current">Back</a>
+</div>
+
+<style>
+    .products-box {
+        display: flex;
+    }
+    .product-card {
+        border: 1px solid black;
+        margin: 0 1rem;
+        padding: 1rem;
+    }
+    button {
+        margin-top: 1rem;
+    }
+</style>
