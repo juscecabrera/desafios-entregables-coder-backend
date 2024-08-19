@@ -2,11 +2,12 @@
     <h1>Carrito</h1>
     <div class="products-box">
         {{#each products}}
-        <div class="product-card">
+        <div class="product-card" data-product-id="{{this._id}}">
             <h3>{{this.title}}</h3>
             <p class="description">Descripción: {{this.description}}</p>
             <p class="price">Precio: {{this.price}}</p>
             <p>Quantity: {{this.quantity}}</p>
+            <button onclick="deleteProductFromCart('{{this._id}}')">Delete from cart</button>
             <hr>
         </div>
         {{/each}}
@@ -17,7 +18,9 @@
         <form method="post" action="/api/cart/{{cid}}/purchase">
             <button type="submit">Buy cart</button>
         </form>
-        <a href="/current">Back</a>
+        <a href="/products/1">Back to products</a>
+        <br>
+        <a href="/current">Home</a>
 </div>
 
 <style>
@@ -33,3 +36,22 @@
         margin-top: 1rem;
     }
 </style>
+<script>
+    const cid = "{{cid}}";
+    function deleteProductFromCart(productId) {
+    fetch(`/api/cart/${cid}/product/${productId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+            productCard.remove();
+        } else {
+            console.log('Error al eliminar el producto del carrito');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>

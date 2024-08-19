@@ -24,9 +24,8 @@ export default (io) => {
 
         socket.on("deleteProduct", async (pid) => {
             try {
-                console.log("Prueba")
-                // const result = await deleteProduct(pid);
-                // socket.emit("publishProducts", result);
+                const result = await deleteProduct(pid);
+                socket.emit("publishProducts", result);
             } catch (error) {
                 socket.emit("statusError", error.message);
             }

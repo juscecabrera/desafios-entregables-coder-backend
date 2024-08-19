@@ -27,10 +27,7 @@ export const emptyCart = async (req, res) => {
     try {
         const cid = req.params.cid
         const result = await cartService.emptyCart(cid)
-        res.send({
-            status: "success",
-            payload: result
-        }); 
+        res.redirect("/current")
     } catch (err) {
         CustomError.createError({
             name: "Server error",
@@ -109,10 +106,8 @@ export const purchaseCart = async (req, res) => {
     try {
         const cid = req.params.cid;
         const result = await cartService.purchaseCart(cid);
-        res.send({
-            status: "success",
-            payload: result
-        }); 
+        const code = result.code
+        res.redirect(`/confirmation/${code}`) 
     } catch (err) {
         console.log(err)
         // CustomError.createError({

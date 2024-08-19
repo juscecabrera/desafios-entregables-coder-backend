@@ -130,10 +130,10 @@ router.get("/cart/:cid", async (req,res) => {
     )
 })
 
-router.get("/api/cart/:cid/purchase", async (req, res) => {
-    let cid = req.params.cid
+router.get("/confirmation/:code", async (req, res) => {
+    let code = req.params.code
 
-    const result = await ticketModel.findOne({purchaser: cid}).lean()
+    const result = await ticketModel.findOne({code: code}).lean()
     console.log(result)
     res.render(
         "purchase", 

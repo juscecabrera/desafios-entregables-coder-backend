@@ -145,7 +145,11 @@ export default class Cart {
             }
 
             const result = await ticketModel.create(ticket)
-            console.log(result)
+
+            setTimeout(async () => {
+                await this.emptyCart(cid);
+            }, 1000);
+
             return result
         } catch (err) {
             console.error(err.message)
